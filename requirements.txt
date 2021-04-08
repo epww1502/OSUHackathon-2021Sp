@@ -2,3 +2,4 @@ pyqt5~=5.15.4
 pandas~=1.2.3
 requests~=2.25.1
 pycoingecko~=1.4.0
+pyupbit~=0.2.14
