@@ -12,9 +12,16 @@ Team: Kimchi
 
 ```
 pip install --no-cache-dir -r requirements.txt
+
 ```
 
 ## Useful Sources
 * binance API: https://python-binance.readthedocs.io/en/latest/binance.html
 
 * UPbit API: https://upbit.com/service_center/open_api_guide
+
+
+## Upgrade list
+* pip install pywinauto
+* api.slack.com -> adding and setting a slack bot
+* requests -> to use slack on python environmnet
