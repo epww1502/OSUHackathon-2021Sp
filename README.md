@@ -15,5 +15,6 @@ pip install --no-cache-dir -r requirements.txt
 ```
 
 ## Useful Sources
-* binance API
-- https://python-binance.readthedocs.io/en/latest/binance.html
+* binance API: https://python-binance.readthedocs.io/en/latest/binance.html
+
+* UPbit API: https://upbit.com/service_center/open_api_guide
