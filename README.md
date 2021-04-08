@@ -13,3 +13,7 @@ Team: Kimchi
 ```
 pip install --no-cache-dir -r requirements.txt
 ```
+
+## Useful Sources
+* binance API
+- https://python-binance.readthedocs.io/en/latest/binance.html
