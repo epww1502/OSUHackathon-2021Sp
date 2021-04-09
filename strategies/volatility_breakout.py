@@ -1,6 +1,10 @@
 import time
 import datetime
 import pyupbit
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file_))))
+
+from api import api
 
 def get_target_price(ticker):
     df = upbit.get_ohlcv(ticker)
@@ -24,13 +28,14 @@ def buy_crypto_currency(ticker):
     orderbook = pyupbit.get_orderbook(ticker)
     sell_price = orderbook['asks'][0]['price']   
     unit = krw/float(sell_price)
-    upbit.buy_market_order(ticker, unit)
+    buy_bit = upbit.buy_market_order(ticker, unit) # {'uuid': '0182cc61-d1a6-4827-9505-74f60a8b076c', 'side': 'bid', 'ord_type': 'price', 'price': '10000.0', 'state': ', 'remaining_fee': wait', 'market': 'KRW-BTC', 'created_at': '2021-02-08T11:05:47+09:00', 'volume': None, 'remaining_volume': None, 'reserved_fee': '5.0', 'remaining_fee': '5.0', 'paid_fee': '0.0', 'locked': '10005.0', 'executed_volume': '0.0', 'trades_count': 0}
+    # post_message(slack,"#stock", "BUY " + buy_bit['market'] + " / Price: " + buy_bit['price'] + " / Time: " + buy_bit['created_at'])
 
 
 def sell_crypto_currency(ticker):
     unit = upbit.get_balance(ticker)[0]
-    upbit.sell_market_order(ticker, unit)
-
+    sell_bit = upbit.sell_market_order(ticker, unit)
+    # post_message(slack,"#stock", "SELL " + sell_bit['market'] + " / Price: " + sell_bit['price'] + " / Time: " + sell_bit['created_at'])
 
 now = datetime.datetime.now()
 mid = datetime.datetime(now.year, now.month, now.day) + datetime.timedelta(1)
