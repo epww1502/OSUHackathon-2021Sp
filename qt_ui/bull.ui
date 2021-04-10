@@ -32,8 +32,8 @@
      <rect>
       <x>120</x>
       <y>100</y>
-      <width>511</width>
-      <height>321</height>
+      <width>541</width>
+      <height>311</height>
      </rect>
     </property>
     <property name="rowCount">
@@ -50,7 +50,7 @@
     </column>
     <column>
      <property name="text">
-      <string>New Column</string>
+      <string>Price</string>
      </property>
     </column>
     <column>
