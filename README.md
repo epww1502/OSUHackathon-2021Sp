@@ -25,3 +25,7 @@ pip install --no-cache-dir -r requirements.txt
 * pip install pywinauto
 * api.slack.com -> adding and setting a slack bot
 * requests -> to use slack on python environmnet
+* pyqt5-tools -> load gui designer for our app
+```
+pyqt5-tools designer
+```

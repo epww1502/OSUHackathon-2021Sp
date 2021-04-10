@@ -3,3 +3,4 @@ pandas~=1.2.3
 requests~=2.25.1
 pycoingecko~=1.4.0
 pyupbit~=0.2.14
+pywinauto~=0.6.8
