@@ -1,8 +1,8 @@
-import pybithumb
+import pyupbit
 import numpy as np
 import requests
 
-'''
+
 def post_message(token, channel, text):
     response = requests.post("https://slack.com/api/chat.postMessage",
         headers={"Authorization": "Bearer "+token},
@@ -10,13 +10,15 @@ def post_message(token, channel, text):
     )
     print(response)
  
-myToken = "xoxb-1940285825253-1967173782768-aWN7zF405rIpqnBG9PA4Syvr"
+myToken = "xoxb-1940285825253-1967173782768-HWISLuHvbFLXxaRKuUbpqkqX"
  
-post_message(myToken,"#stock","testing code")
-'''
+post_message(myToken,"#stock","여기서 말할거야")
+
+
+
 
 # 전체 기간 (2013 ~ Current) 백테스팅 코드
-df = pybithumb.get_ohlcv("BTC")
+df = pyupbit.get_ohlcv("BTC")
 
 df['ma5'] = df['close'].rolling(window=5).mean().shift(1)
 df['range'] = (df['high'] - df['low']) * 0.5

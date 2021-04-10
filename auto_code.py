@@ -1,15 +1,15 @@
 ############################ API ##########################
-import pybithumb # For bithumb
+import pyupbit
 import time
 import requests # For slack
 import datetime
 
 # Read connect key and secret key from upbit.txt (first line: connect key / second: secret key)
-with open("bithumb.txt") as f:
+with open("upbit.txt") as f:
     lines = f.readlines()
     key = lines[0].strip()
     secret = lines[1].strip()
-    bithumb = pybithumb.Bithumb(key, secret)
+    upbit = pyupbit.Upbit(key, secret)
 
  
 def post_message(token, channel, text):
@@ -18,15 +18,17 @@ def post_message(token, channel, text):
         data={"channel": channel,"text": text}
     )
     print(response)
- 
+
+
+# Slack API 필요!
 slack = "xoxb-~~~~" # Should input slack info
 post_message(slack,"#stock","Connected to Slack")
 
 ## Balance Checking
 def balance_check():
     post_message(slack,"#stock","Current Balance: \n")
-    for ticker in pybithumb.get_tickers() :
-        balance = bithumb.get_balance(ticker)
+    for ticker in pyupbit.get_tickers() :
+        balance = upbit.get_balance(ticker)
         print(ticker, ":", balance)
         post_message(slack,"#stock", ticker + ":" + balance + " ")
         time.sleep(0.1)
@@ -72,8 +74,9 @@ print(ret)
 
 
 ######################### Volatility_breakout.py ##############################
+################# 이 아래로 주석 처리하면 구매나 판매는 작동 안함!! ###############
 def get_target_price(ticker):
-    df = pybithumb.get_ohlcv(ticker)
+    df = pyupbit.get_ohlcv(ticker)
     yesterday = df.iloc[-2]
 
     today_open = yesterday['close']
@@ -83,24 +86,24 @@ def get_target_price(ticker):
     return target
 
 def get_yesterday_ma5(ticker):
-    df = pybithumb.get_ohlcv(ticker)
+    df = pyupbit.get_ohlcv(ticker)
     close = df['close']
     ma = close.rolling(5).mean()
     return ma[-2]
 
 
 def buy_crypto_currency(ticker):
-    krw = bithumb.get_balance(ticker)[2] # "upbit" from api.py
-    orderbook = pybithumb.get_orderbook(ticker)
+    krw = upbit.get_balance(ticker)[2] # "upbit" from api.py
+    orderbook = pyupbit.get_orderbook(ticker)
     sell_price = orderbook['asks'][0]['price']   
     unit = krw/float(sell_price)
-    buy_bit = bithumb.buy_market_order(ticker, unit) # {'uuid': '0182cc61-d1a6-4827-9505-74f60a8b076c', 'side': 'bid', 'ord_type': 'price', 'price': '10000.0', 'state': ', 'remaining_fee': wait', 'market': 'KRW-BTC', 'created_at': '2021-02-08T11:05:47+09:00', 'volume': None, 'remaining_volume': None, 'reserved_fee': '5.0', 'remaining_fee': '5.0', 'paid_fee': '0.0', 'locked': '10005.0', 'executed_volume': '0.0', 'trades_count': 0}
+    buy_bit = upbit.buy_market_order(ticker, unit) # {'uuid': '0182cc61-d1a6-4827-9505-74f60a8b076c', 'side': 'bid', 'ord_type': 'price', 'price': '10000.0', 'state': ', 'remaining_fee': wait', 'market': 'KRW-BTC', 'created_at': '2021-02-08T11:05:47+09:00', 'volume': None, 'remaining_volume': None, 'reserved_fee': '5.0', 'remaining_fee': '5.0', 'paid_fee': '0.0', 'locked': '10005.0', 'executed_volume': '0.0', 'trades_count': 0}
     # post_message(slack,"#stock", "BUY " + buy_bit['market'] + " / Price: " + buy_bit['price'] + " / Time: " + buy_bit['created_at'])
 
 
 def sell_crypto_currency(ticker):
-    unit = bithumb.get_balance(ticker)[0]
-    sell_bit = bithumb.sell_market_order(ticker, unit)
+    unit = upbit.get_balance(ticker)[0]
+    sell_bit = upbit.sell_market_order(ticker, unit)
     # post_message(slack,"#stock", "SELL " + sell_bit['market'] + " / Price: " + sell_bit['price'] + " / Time: " + sell_bit['created_at'])
 
 now = datetime.datetime.now()
@@ -116,7 +119,7 @@ while True:
             mid = datetime.datetime(now.year, now.month, now.day) + datetime.timedelta(1)
             sell_crypto_currency("BTC")
 
-        current_price = pybithumb.get_current_price("BTC")
+        current_price = pyupbit.get_current_price("BTC")
         if (current_price > target_price) and (current_price > ma5):
             buy_crypto_currency("BTC")
     except:
