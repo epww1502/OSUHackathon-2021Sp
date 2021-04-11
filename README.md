@@ -29,3 +29,9 @@ pip install --no-cache-dir -r requirements.txt
 ```
 pyqt5-tools designer
 ```
+
+## How to run
+make sure to install all dependencies before run our bot!
+also, you should have your own api and secret keys
+ 
+``` python main.py ```
