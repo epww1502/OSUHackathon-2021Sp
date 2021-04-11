@@ -11,7 +11,7 @@ def post_message(token, channel, text):
 
 
 # Slack API 필요!
-slack = "xoxb-1940285825253-1967173782768-K9Wyxp8nBekWB2qo3S7JpJEy" # Should input slack info
+slack = "yourslackcodehere" # Should input slack info
 post_message(slack,"#stock","Connected to Slack")
 
 def get_target(ticker):

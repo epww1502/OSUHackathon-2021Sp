@@ -34,7 +34,7 @@ class AutoWorker(QtCore.QThread):
         while self.alive:
             try:
                 now = datetime.datetime.now()
-                if now <= now < mid + datetime.timedelta(seconds=10):
+                if mid < now < mid + datetime.timedelta(seconds=10):
                         print("selling !")
                         target_price = get_target(self.ticker)
                         mid = datetime.datetime(now.year, now.month, now.day) + datetime.timedelta(1)
@@ -58,7 +58,7 @@ class AutoWorker(QtCore.QThread):
 
                 if wait_flag == False:
                     print(current_price, target_price, ma5)
-                    target_price = 10000                # changed for demo
+                    #target_price = 10000                # changed for demo
                     if (current_price > target_price) and (current_price > ma5):
                         print("buying !")
                         call_buy = buy_crypto(self.ticker, self.upbit)

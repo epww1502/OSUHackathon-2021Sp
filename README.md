@@ -33,5 +33,6 @@ pyqt5-tools designer
 ## How to run
 make sure to install all dependencies before run our bot!
 also, you should have your own api and secret keys
+To get slack notification, put your slack api code on line 14 of 'auto_function.py' after set your slack channel
  
 ``` python main.py ```
